@@ -19,4 +19,9 @@ public interface IEmailDAO {
 	 * added by dTagBase
 	 */
 	public List<EmailMessage> listMessagesByTag(String tag) throws EmailException;
+	
+	/***
+	 * added by dCategoryBase
+	 */
+	public List<EmailMessage> listMessagesByCategory(String category) throws EmailException;
 }

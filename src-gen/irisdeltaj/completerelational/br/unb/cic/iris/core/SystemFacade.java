@@ -19,8 +19,11 @@ import irisdeltaj.completerelational.br.unb.cic.iris.mail.provider.ProviderManag
 import irisdeltaj.completerelational.br.unb.cic.iris.persistence.IEmailDAO;
 import irisdeltaj.completerelational.br.unb.cic.iris.persistence.relational.EmailDAO;
 import irisdeltaj.completerelational.br.unb.cic.iris.persistence.relational.FolderDAO;
+import irisdeltaj.completerelational.br.unb.cic.iris.util.CategoryUtil;
 import irisdeltaj.completerelational.br.unb.cic.iris.persistence.relational.AddressBookDAO;
+import irisdeltaj.completerelational.br.unb.cic.iris.persistence.relational.CategoryDAO;
 import irisdeltaj.completerelational.br.unb.cic.iris.core.model.AddressBookEntry;
+import irisdeltaj.completerelational.br.unb.cic.iris.core.model.Category;
 
 /***
  * added by dBaseFacade* modified by dPersistenceRelational* modified by
@@ -65,6 +68,13 @@ public final class SystemFacade {
 	private void saveMessage(EmailMessage message, String folderName) throws EmailException {
 		IEmailDAO dao = EmailDAO.instance();
 		IrisFolder folder = FolderDAO.instance().findByName(folderName);
+
+		CategoryDAO daoCategory = CategoryDAO.instance();
+		String categoryName = CategoryUtil.defineCategory(message.getMessage(), message.getSubject(),
+				message.getFrom());
+		Category category = daoCategory.findByName(categoryName);
+		message.setCategory(category);
+
 		message.setFolder(folder);
 		dao.saveMessage(message);
 	}

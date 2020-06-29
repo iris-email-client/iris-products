@@ -3,6 +3,7 @@ package irisdeltaj.completerelational.br.unb.cic.iris.persistence.relational;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import irisdeltaj.completerelational.br.unb.cic.iris.core.exception.DBException;
 import irisdeltaj.completerelational.br.unb.cic.iris.core.model.EmailMessage;
@@ -123,6 +124,26 @@ public final class EmailDAO extends AbstractDAO<EmailMessage> implements IEmailD
 			System.out.println("messages: " + messages);
 		} catch (Exception e) {
 			handleException(new DBException("Error listing messages with tag: " + tag, e));
+		} finally {
+			closeSession();
+		}
+		return messages;
+	}
+	
+	/***
+	 * added by dCategoryRelational
+	 */
+	@Override
+	public List<EmailMessage> listMessagesByCategory(String category) throws DBException {
+		List<EmailMessage> messages = new java.util.ArrayList<EmailMessage>();
+		try {
+			startSession(false);
+			Query query = session.createQuery("SELECT e FROM EmailMessage e WHERE e.category.name = :name");
+			query.setParameter("name", category.toUpperCase());
+			messages = populate((List<EmailMessage>) query.list());
+			System.out.println("messages: " + messages);
+		} catch (Exception e) {
+			handleException(new DBException("Error listing messages with category: " + category.toUpperCase(), e));
 		} finally {
 			closeSession();
 		}

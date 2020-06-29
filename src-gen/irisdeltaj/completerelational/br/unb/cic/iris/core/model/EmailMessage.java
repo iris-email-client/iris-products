@@ -161,4 +161,25 @@ public class EmailMessage extends FolderContent {
 	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 	}
+	
+	/***
+	 * added by dCategoryRelational
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CATEGORY_ID", nullable = false)
+	private Category category;
+
+	/***
+	 * added by dCategoryRelational
+	 */
+	public Category getCategory() {
+		return category;
+	}
+
+	/***
+	 * added by dCategoryRelational
+	 */
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 }

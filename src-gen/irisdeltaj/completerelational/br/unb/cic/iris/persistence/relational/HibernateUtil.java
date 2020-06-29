@@ -11,6 +11,7 @@ import irisdeltaj.completerelational.br.unb.cic.iris.core.model.EmailMessage;
 import irisdeltaj.completerelational.br.unb.cic.iris.core.model.FolderContent;
 import irisdeltaj.completerelational.br.unb.cic.iris.core.model.IrisFolder;
 import irisdeltaj.completerelational.br.unb.cic.iris.core.model.AddressBookEntry;
+import irisdeltaj.completerelational.br.unb.cic.iris.core.model.Category;
 import irisdeltaj.completerelational.br.unb.cic.iris.core.model.Tag;
 
 /***
@@ -44,6 +45,7 @@ public class HibernateUtil {
 	 */
 	public static void configureClasses() {
 		classList.add(Tag.class);
+		classList.add(Category.class);
 		configureClasses_original2();
 	}
 
